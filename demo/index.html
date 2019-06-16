@@ -1,0 +1,44 @@
+<html>
+<head>
+    <script type="text/javascript" src="jquery.min.js"></script>
+</head>
+<body>
+	<div id="ajaxpage_progress_bar"></div><!-- 显示进度条的div -->
+    <div id="list">
+        <ul>
+            <li>{list.id}</li>   
+            <li>{list.order_date}</li> 
+        </ul>
+    </div>
+    <div id="showpage"></div><!-- 这里要写一个标签显示页码,如果页数小于1页，是不会显示的 -->
+</body>
+<script type="text/javascript" src="./jquery.min.js"></script>
+<script type="text/javascript" src="../ajaxpage-c-2.0.js"></script>
+<script>
+	ajaxpage({
+			limit:1,    //每页显示多少条
+			url:'./test.php',    //请求的url
+			//where:{title:title},    //搜索的where条件
+			jump:true,    //是否启用页码跳转
+			progress:true    //是否启用进度条
+		});
+
+//遍历数据，要写一个名为eachdata(res)的函数用来遍历数据,要接收res参数
+function eachdata(res){
+
+    if(!res){
+        $('#list').html('');
+        return false;
+    }
+
+    var str = '';
+
+    for(var i in res)
+    {
+        str += '<ul><li>'+res[i].id+'</li><li>'+res[i].user_name+'</li></ul>';
+    }
+
+    $('#list').html(str);
+};
+</script>
+</html>
